@@ -7,7 +7,6 @@
   Don't redistribute without permission, or before contacting @minishakk on Discord.
 ]]
 
-
 local Players = game:GetService("Players")
 
 local player = Players.LocalPlayer
@@ -40,6 +39,8 @@ game:GetService("StarterGui"):SetCore("SendNotification",{
     Icon = "rbxassetid://5381454270"
 })
 
+local equipped = false
+
 local function killCharacter(target)
     local character = target:FindFirstAncestorOfClass("Model")
     if character and character ~= player.Character then
@@ -51,14 +52,19 @@ local function killCharacter(target)
 end
 
 tool.Equipped:Connect(function()
+    equipped = true
     reloadSound:Play()
-    mouse.Button1Down:Connect(function()
-        local target = mouse.Target
-        if target then
-            shootSound:Play()
-            killCharacter(target)
-        end
-    end)
+end)
+
+tool.Unequipped:Connect(function()
+    equipped = false
+end)
+
+mouse.Button1Down:Connect(function()
+    shootSound:Play()
+    if equipped and mouse.Target then
+        killCharacter(mouse.Target)
+    end
 end)
 
 tool.Parent = player.Backpack
