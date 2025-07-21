@@ -35,7 +35,7 @@ reloadSound.Parent = handle
 
 game:GetService("StarterGui"):SetCore("SendNotification",{
     Title = "FE Gun",
-    Text = "Click to shoot NPCs!",
+    Text = "by @minishakk. Kills NPCs",
     Icon = "rbxassetid://5381454270"
 })
 
