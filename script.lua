@@ -61,8 +61,8 @@ tool.Unequipped:Connect(function()
 end)
 
 mouse.Button1Down:Connect(function()
-    shootSound:Play()
     if equipped and mouse.Target then
+        shootSound:Play()
         killCharacter(mouse.Target)
     end
 end)
