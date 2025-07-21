@@ -40,6 +40,7 @@ game:GetService("StarterGui"):SetCore("SendNotification",{
 })
 
 local equipped = false
+local mouseDownConnection
 
 local function killCharacter(target)
     local character = target:FindFirstAncestorOfClass("Model")
@@ -54,17 +55,21 @@ end
 tool.Equipped:Connect(function()
     equipped = true
     reloadSound:Play()
+    mouseDownConnection = mouse.Button1Down:Connect(function()
+        if equipped and mouse.Target then
+            shootSound:Play()
+            killCharacter(mouse.Target)
+        end
+    end)
 end)
 
 tool.Unequipped:Connect(function()
     equipped = false
-end)
-
-mouse.Button1Down:Connect(function()
-    if equipped and mouse.Target then
-        shootSound:Play()
-        killCharacter(mouse.Target)
+    if mouseDownConnection then
+        mouseDownConnection:Disconnect()
+        mouseDownConnection = nil
     end
 end)
 
 tool.Parent = player.Backpack
+
