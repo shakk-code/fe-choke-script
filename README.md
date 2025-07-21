@@ -1,5 +1,7 @@
-# fe-gun-script
-An FE gun script.
+# FE Choke Script
+It's an FE choke script.
+
+<img width="638" height="748" alt="image" src="https://github.com/user-attachments/assets/9341d809-a951-41a2-9ff1-62af97892e76" />
 
 It kills NPCs (in most games) on the SERVER.  
 This means that EVERYONE can see that you have killed the NPC, and that it is dead.  
