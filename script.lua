@@ -24,6 +24,14 @@ handle.Transparency = 1
 handle.CanCollide = false
 handle.Parent = tool
 
+local pullSound = Instance.new("Sound")
+pullSound.SoundId = "rbxassetid://86165035080520"
+pullSound.Parent = handle
+
+local crackSound = Instance.new("Sound")
+crackSound.SoundId = "rbxassetid://107817785521562"
+crackSound.Parent = handle
+
 local chokeSound = Instance.new("Sound")
 chokeSound.SoundId = "rbxassetid://18857324929"
 chokeSound.Parent = handle
@@ -39,9 +47,9 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 
 local equipped = false
-local mouseDownConnection
+local mousecon
 
-local function spawnBloodEffect(position)
+local function bleed(position)
 	local part = Instance.new("Part")
 	part.Size = Vector3.new(1, 1, 1)
 	part.Anchored = true
@@ -64,7 +72,7 @@ local function spawnBloodEffect(position)
 	game:GetService("Debris"):AddItem(part, 2)
 end
 
-local function killCharacter(target)
+local function choke(target)
 	local character = target:FindFirstAncestorOfClass("Model")
 	if character and character ~= player.Character then
 		local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -72,16 +80,19 @@ local function killCharacter(target)
 		if humanoid and head then
 			local rootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
 			if rootPart then
-				local targetCFrame = head.CFrame
-				local forward = targetCFrame.LookVector * 2         -- in front
-				local leftOffset = targetCFrame.RightVector * 1.5   -- NPC's left = +RightVector
-				local newPosition = targetCFrame.Position + forward + leftOffset
+				local npcCFrame = head.CFrame
 
-				rootPart.CFrame = CFrame.new(newPosition, targetCFrame.Position)
+				local leftOffset = -npcCFrame.RightVector * 1
+				local backOffset = -npcCFrame.LookVector * 1
+
+				local finalPosition = npcCFrame.Position + leftOffset + backOffset
+
+				rootPart.CFrame = CFrame.new(finalPosition, finalPosition + npcCFrame.LookVector)
+
 			end
-
-			spawnBloodEffect(head.Position)
 			task.wait(4)
+			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+			task.wait(0.2)
 			humanoid:ChangeState(Enum.HumanoidStateType.Dead)
 		end
 	end
@@ -90,19 +101,21 @@ end
 tool.Equipped:Connect(function()
 	equipped = true
 	startSound:Play()
-	mouseDownConnection = mouse.Button1Down:Connect(function()
+	mousecon = mouse.Button1Down:Connect(function()
 		if equipped and mouse.Target then
+			pullSound:Play()
 			chokeSound:Play()
-			killCharacter(mouse.Target)
+			choke(mouse.Target)
+			crackSound:Play()
 		end
 	end)
 end)
 
 tool.Unequipped:Connect(function()
 	equipped = false
-	if mouseDownConnection then
-		mouseDownConnection:Disconnect()
-		mouseDownConnection = nil
+	if mousecon then
+		mousecon:Disconnect()
+		mousecon = nil
 	end
 end)
 
