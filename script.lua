@@ -1,10 +1,19 @@
 --[[
-  FE Choke Script
-  By minishakk
+	FE Choke Script (v1.1)
+	By minishakk
+	
+	R6/R15 compatible | ONLY WORKS ON NPCs or DUMMYS AND NOT REAL PLAYERS!!!
 
-  Click to choke npcs [FE].
+	Controls:
+		Left Click - Choke
 
-  Don't redistribute without permission, or before contacting @minishakk on Discord.
+	Changelog:
+		7/22/25 [9:44 PM] - Initial release (v1.0)
+		7/24/25 [10:23 AM] - Cleaned up code, volume is louder. (v1.1)
+		
+	Click to choke npcs [FE] and turn them to dust ;)
+
+	Don't redistribute without permission, or before contacting @minishakk on Discord.
 ]]
 
 local Players = game:GetService("Players")
@@ -27,14 +36,17 @@ handle.Parent = tool
 local pullSound = Instance.new("Sound")
 pullSound.SoundId = "rbxassetid://86165035080520"
 pullSound.Parent = handle
+pullSound.Volume = 2
 
 local crackSound = Instance.new("Sound")
 crackSound.SoundId = "rbxassetid://107817785521562"
 crackSound.Parent = handle
+crackSound.Volume = 2
 
 local chokeSound = Instance.new("Sound")
 chokeSound.SoundId = "rbxassetid://18857324929"
 chokeSound.Parent = handle
+chokeSound.Volume = 2
 
 local startSound = Instance.new("Sound")
 startSound.SoundId = "rbxassetid://6784421247"
@@ -119,4 +131,4 @@ tool.Unequipped:Connect(function()
 	end
 end)
 
-tool.Parent = player.Backpack
+tool.Parent = player.Backpack -- gives you the power ;)
