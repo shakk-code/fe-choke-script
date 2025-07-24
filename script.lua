@@ -1,3 +1,4 @@
+
 --[[
   FE Choke Script
   By minishakk
@@ -42,7 +43,7 @@ startSound.Parent = handle
 
 game:GetService("StarterGui"):SetCore("SendNotification", {
 	Title = "FE Choke",
-	Text = "by @minishakk. Kills NPCs",
+	Text = "by minishakk. Kills NPCs",
 	Icon = "rbxassetid://15465967388"
 })
 
