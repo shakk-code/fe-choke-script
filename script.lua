@@ -9,7 +9,7 @@
 
 	Changelog:
 		7/22/25 [9:44 PM] - Initial release (v1.0)
-		7/24/25 [10:23 AM] - Cleaned up code, volume is louder. (v1.1)
+		7/24/25 [10:23 AM] - Cleaned up code, bug fixes, volume is louder. (v1.1)
 		
 	Click to choke npcs [FE] and turn them to dust ;)
 
