@@ -1,4 +1,3 @@
-
 --[[
   FE Choke Script
   By minishakk
